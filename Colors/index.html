@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<style>
+#button-1 {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#button-2 {
+  background-color: rgb(50, 22, 175);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#color {
+  background-color: rgb(179, 9, 46);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+</style>
+
+<script>
+    function myFunction(button) {
+      button1 = document.getElementById("button-1");
+      button2 = document.getElementById("button-2");
+      if (button == 1) {
+        button = button1;
+      } else {
+        button = button2;
+      }
+      color = document.getElementById("color");
+      color.style.backgroundColor = window.getComputedStyle(button, null).getPropertyValue('background-color');
+    }
+    </script>
+</head>
+<body>
+
+<div>
+  <div id="button-div">
+    <button id="button-1" onclick="myFunction(1)">Button 1</button>
+    <button id="button-2" onclick="myFunction(2)">Button 2</button>
+  </div>
+  <p>Best guess:</p>
+  <div id="color"></div>
+</div>
+
+
+</body>
+</html>
