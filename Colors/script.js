@@ -90,3 +90,66 @@ function getColorArray(element) {
 function rgbString(rgbArray) {
     return "rgb(" + rgbArray[0] + ", " + rgbArray[1] + ", " + rgbArray[2] + ")";
 }
+// TODO Test conversions
+// TODO probability of doing things
+
+// https://howlettstudios.com/articles/2017/5/6/the-problem-with-hsv
+function rgbToHSV(rgbArray) {
+    var r = rgbArray[0] / 255;
+    var g = rgbArray[1] / 255;
+    var b = rgbArray[2] / 255;
+
+    var cmax = Math.max(r, g, b);
+    var cmin = Math.min(r, g, b)
+
+    var delta = cmax - cmin;
+
+    var h;
+    if (cmax == r) {
+        h = 60 * (((g-b)/delta) % 6);
+    } else if (cmax == g) {
+        h = 60 * (((b-r)/delta) + 2);
+    } else if (cmax == b) {
+        h = 60 * (((r-g)/delta) + 4);
+    }
+
+    var s;
+    if (cmax == 0) {
+        s = 0;
+    } else {
+        s = delta/cmax;
+    }
+
+    var v = cmax;
+
+    return [h, s, v];
+}
+
+function hsvToRGB(hsvArray) {
+    var h = hsvArray[0];
+    var s = hsvArray[1];
+    var v = hsvArray[2];
+
+    var c = v * s;
+    var x = c * (1 - Math.abs((h/60)%2 - 1));
+    var m = v - c;
+
+    var rgbArray;
+    if (h < 60) {
+        rgbArray = [c, x, 0];
+    } else if (h < 120) {
+        rgbArray = [x, c, 0];
+    } else if (h < 180) {
+        rgbArray = [0, c, x];
+    } else if (h < 240) {
+        rgbArray = [0, x, c];
+    } else if (h < 300) {
+        rgbArray = [x, 0, c];
+    } else {
+        rgbArray = [c, 0, x];
+    }
+    for (var i = 0; i < 3; i++) {
+        rgbArray[i] = Math.round(rgbArray[i] * 255);
+    }
+    return rgbArray;
+}
